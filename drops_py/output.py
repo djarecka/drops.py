@@ -46,13 +46,13 @@ class output_lgr:
     variables_spec = ['dry_number', 'wet_number', "cld_number"]
     # concentration per size of dry particles
     self.dry_number = self.hdf_spec.create_dataset("dry_number",
-                           (out_time.size, self.bins_dry.size - 1), dtype='f')
+                           (out_time.size, self.bins_dry.size - 1), dtype='d')
     # concentration per size of wet particles
     self.wet_number = self.hdf_spec.create_dataset("wet_number",
-                                 (out_time.size, self.bins_wet.size - 1), dtype='f')
+                                 (out_time.size, self.bins_wet.size - 1), dtype='d')
     # concentratio per size of wet particles
     self.cld_number = self.hdf_spec.create_dataset("cld_number",
-                                 (out_time.size, self.bins_cld.size - 1), dtype='f')
+                                 (out_time.size, self.bins_cld.size - 1), dtype='d')
 
     # attaching scales, units etc. to the hdf variables
     self.dry_number.dims.create_scale(self.hdf_spec["bins_dry"], "dry_radius")
@@ -88,7 +88,7 @@ class output_lgr:
     for var in variables_sound:
       #print "var sound", var
       #pdb.set_trace()
-      setattr(self, var, self.hdf_sound.create_dataset(var, (out_time.size,), dtype='f')) 
+      setattr(self, var, self.hdf_sound.create_dataset(var, (out_time.size,), dtype='d')) 
       getattr(self, var).dims.create_scale(self.hdf_sound["time"], "time")
       getattr(self, var).dims[0].attach_scale(self.hdf_sound["time"])
       getattr(self, var).dims[0].label = 's'
